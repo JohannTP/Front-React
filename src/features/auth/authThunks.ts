@@ -7,7 +7,7 @@ export const login = createAsyncThunk<Usuario, LoginParams>(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axiosClient.post<Usuario>(
-        "/usuario/login",
+        "/usuarios/autenticar",
         credentials
       );
       return response.data;
