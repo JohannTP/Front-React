@@ -18,21 +18,34 @@ export default function UserList() {
 
   return (
     <div className="container mt-5">
-      <h2>Lista de Usuarios</h2>
-      <table className="table table-bordered mt-3">
-        <thead className="table-dark">
+      <h4 className="text-center font-monospace fw-bold text-white">
+        LISTA DE USUARIOS
+      </h4>
+      <table className="table table-striped mt-3 table-hover">
+        <thead className="table-primary">
           <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Correo</th>
+            <th className="text-center">ID</th>
+            <th className="text-center">NOMBRE</th>
+            <th className="text-center">CORREO</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {usuarios.map((u) => (
-            <tr key={u.id}>
+            <tr className="text-center" key={u.id}>
               <td>{u.id}</td>
               <td>{u.nombre}</td>
               <td>{u.correo}</td>
+              <td>
+                <a className="btn btn-warning">
+                  <img
+                    src="/icons/pencil-square.svg"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="Editar"
+                  />
+                </a>
+              </td>
+              <td></td>
             </tr>
           ))}
         </tbody>

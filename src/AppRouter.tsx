@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/login/login";
 import UserList from "./features/users/UserList";
+import MainLayout from "./layouts/MainLayout";
 import { useAppSelector } from "./app/hooks";
 
 export default function AppRouter() {
@@ -9,19 +10,21 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Si no hay usuario logeado, redirige al login */}
+        {/* Página de login */}
         <Route
           path="/"
-          element={user ? <Navigate to="/usuarios" /> : <Login />}
+          element={!user ? <Login /> : <Navigate to="/usuarios" />}
         />
 
-        {/* Ruta protegida para la lista de usuarios */}
-        <Route
-          path="/usuarios"
-          element={user ? <UserList /> : <Navigate to="/" />}
-        />
+        {/* Rutas protegidas dentro del layout */}
+        {user && (
+          <Route element={<MainLayout />}>
+            <Route path="/usuarios" element={<UserList />} />
+            {/* Agrega aquí tus demás rutas internas */}
+          </Route>
+        )}
 
-        {/* Si no existe la ruta, redirige */}
+        {/* Redirección por defecto */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
