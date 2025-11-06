@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-
-interface Usuario {
-  id: number;
-  nombre: string;
-  correo: string;
-}
+import pencilIcon from "../../assets/icons/pencil-square.svg";
+import trashIcon from "../../assets/icons/trash3-fill.svg";
+import { Link } from "react-router-dom";
+import { obtenerUsuarios } from "./api";
+import type { Usuario } from "./types";
 
 export default function UserList() {
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
 
   useEffect(() => {
-    axios.get("https://localhost:7049/api/usuarios/obtener").then((res) => {
-      setUsuarios(res.data);
-    });
+    obtenerUsuarios().then((res) => setUsuarios(res.data));
   }, []);
 
   return (
@@ -37,15 +33,24 @@ export default function UserList() {
               <td>{u.nombre}</td>
               <td>{u.correo}</td>
               <td>
-                <a className="btn btn-warning">
+                <Link
+                  to={`/usuarios/editar/${u.id}`}
+                  className="btn btn-warning me-2"
+                >
                   <img
-                    src="/icons/pencil-square.svg"
+                    src={pencilIcon}
                     data-bs-toggle="tooltip"
                     data-bs-title="Editar"
                   />
+                </Link>
+                <a className="btn btn-danger">
+                  <img
+                    src={trashIcon}
+                    data-bs-toggle="tooltip"
+                    data-bs-title="Eliminar"
+                  />
                 </a>
               </td>
-              <td></td>
             </tr>
           ))}
         </tbody>
