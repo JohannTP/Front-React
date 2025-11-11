@@ -17,7 +17,7 @@ export default function UserList() {
       <h4 className="text-center font-monospace fw-bold text-white">
         LISTA DE USUARIOS
       </h4>
-      <table className="table table-striped mt-3 table-hover">
+      <table className="table table-sm table-striped mt-3 table-hover">
         <thead className="table-primary">
           <tr>
             <th className="text-center">ID</th>
